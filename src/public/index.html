@@ -5,12 +5,111 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slack</title>
+  <link rel="stylesheet" href="./style.css">
+  <title>Slack Chat Clone</title>
 </head>
 
 <body>
-  Hello World
+  <div class="container">
+    <div class="header">
+      <div class="header__history">
+        <ion-icon name="time-outline" class="history__icon"></ion-icon>
+      </div>
+      <div class="search">
+        <form action="" class="search__form">
+          <input type="text" placeholder="Search Namespace" class="search__input">
+          <button class="search__btn">
+            <ion-icon name="search-outline" class="search__icon"></ion-icon>
+          </button>
+        </form>
+      </div>
+      <div class="header__help">
+        <ion-icon name="help-circle-outline" class="help__icon"></ion-icon>
+      </div>
+      <div class="header__user">user</div>
+    </div>
+    <section class="content">
+      <nav class="sidebar">
+        <div class="sidebar__header">
+          <h3 class="sidebar__title">Friendzone</h3>
+          <ion-icon name="create-outline" class="sidebar__header-icon"></ion-icon>
+        </div>
+        <ul class="list">
+          <div class="list__title">
+            <div class="list__title-text">Channels</div>
+            <ion-icon name="add-circle-outline" class="list__title-icon"></ion-icon>
+          </div>
+          <li class="list__item"># introduction</li>
+          <li class="list__item"># cis</li>
+          <li class="list__item"># general</li>
+          <li class="list__item"># mumu friends</li>
+          <li class="list__item"># games</li>
+        </ul>
+      </nav>
+      <main class="chat">
+        <div class="chat__title">
+          <div class="chat__title-text"># introduction</div>
+          <div class="chat__users">
+            <span class="chat__users-count">23</span>
+            <ion-icon name="people-outline" class="chat__users-icon"></ion-icon>
+          </div>
+        </div>
+        <!-- Chats/Messages -->
+        <div class="messages">
+          <div class="message__card">
+            <div class="sender__avatar">
+              <ion-icon name="person-outline" class="sender__avatar--icon"></ion-icon>
+            </div>
+            <div>
+              <div class="sender__info">
+                <div class="sender__name">Kester Nwachukwu</div>
+                <div class="sender__message-time">12:00am</div>
+              </div>
+              <div class="sender__message">Done</div>
+            </div>
+          </div>
+          <div class="message__card">
+            <div class="sender__avatar">
+              <ion-icon name="person-outline" class="sender__avatar--icon"></ion-icon>
+            </div>
+            <div>
+              <div class="sender__info">
+                <div class="sender__name">Victor Nwachukwu</div>
+                <div class="sender__message-time">12:01am</div>
+              </div>
+              <div class="sender__message">Thank you</div>
+            </div>
+          </div>
+        </div>
+        <!-- Create Message -->
+        <div class="pane">
+          <div class="message-pane">
+            <div class="message-pane__header"></div>
+            <div class="message-pane__body">
+              <form id="message-form" action="#" class="message">
+                <textarea name="" id="" rows="1" class="message__input" placeholder="Message #introduction"></textarea>
+                <!-- <input type="text" placeholder="Message #introduction" class="message__input"> -->
+              </form>
+            </div>
+            <div class="message-pane__footer">
+              <div class="message-pane__toolbar">
+                <ion-icon name="add-circle-outline" class="toolbar__icon"></ion-icon>
+                <ion-icon name="videocam-outline" class="toolbar__icon"></ion-icon>
+                <ion-icon name="mic-outline" class="toolbar__icon"></ion-icon>
+              </div>
+              <button form="message-form" class="message__btn-send">
+                <ion-icon name="paper-plane-outline" class="message__btn-send--icon"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
 
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script type="module" src="./app.js"></script>
 </body>
