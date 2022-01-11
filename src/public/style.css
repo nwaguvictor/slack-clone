@@ -37,7 +37,7 @@ body {
 }
 
 .header__history {
-  margin-left: 22rem;
+  margin-left: 28rem;
 }
 .history__icon,
 .help__icon {
@@ -108,7 +108,12 @@ body {
 }
 
 .header__user {
-  /* align-self: stretch; */
+  align-self: center;
+}
+
+.header__logout {
+  cursor: pointer;
+  font-size: 2.2rem;
 }
 
 /* Content Section */
