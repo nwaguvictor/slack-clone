@@ -118,6 +118,28 @@ body {
   height: calc(100vh - 4rem);
 }
 
+.sidenav {
+  flex: 0 0 5%;
+  background-color: var(--clr-background);
+  padding: 1rem;
+}
+
+.sidenav > * {
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--clr-text);
+  color: #121016;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+.sidenav > *:not(:last-child) {
+  margin-bottom: 0.8rem;
+}
+
 .sidebar {
   flex: 0 0 20%;
   background-color: #19171d;
@@ -181,6 +203,7 @@ body {
 
 .list__item {
   padding: 0.5rem 2rem 0.5rem 4rem;
+  list-style-type: none;
   cursor: pointer;
 }
 
@@ -215,7 +238,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80%;
+  width: 75%;
   height: 5rem;
   padding: 0 1rem 0 2rem;
   background-color: #1a1d21;
@@ -290,7 +313,7 @@ body {
   position: fixed;
   bottom: 0;
   padding: 2rem;
-  width: 80%;
+  width: 75%;
 }
 
 .message-pane {
