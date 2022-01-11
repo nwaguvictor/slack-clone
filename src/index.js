@@ -1,5 +1,6 @@
 const express = require('express');
 const { createServer } = require('http');
+const connectDB = require('./config/db');
 const socketio = require('./socketio');
 
 const app = express();
@@ -9,6 +10,7 @@ const server = createServer(app);
 socketio(server);
 
 const PORT = process.env.PORT || 2022;
-server.listen(PORT, () => {
+server.listen(PORT, async () => {
+  await connectDB();
   console.log(`::> Server running http://localhost:${PORT}`);
 });
