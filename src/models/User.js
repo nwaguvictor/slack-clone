@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 
 const schema = new Schema({
   name: {
@@ -30,5 +32,10 @@ schema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 10);
   next();
 });
+
+schema.methods.signToken = async function () {
+  const token = await promisify(jwt.sign)({ id: this.id }, 'secret', { expiresIn: '90d' });
+  return token;
+};
 
 module.exports = model('User', schema);
