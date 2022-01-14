@@ -38,4 +38,8 @@ schema.methods.signToken = async function () {
   return token;
 };
 
+schema.methods.confirmPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
 module.exports = model('User', schema);
