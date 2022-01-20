@@ -15,9 +15,7 @@ $('#form__login').addEventListener('submit', e => {
   $('#password').value = '';
 });
 
-socket.on('user:login-success', ({ success, token, user }) => {
-  if (success) {
-    window.location = 'http://localhost:2022/index.html';
-  }
+socket.on('user:login-success', ({ token }) => {
+  window.location = `http://localhost:2022/index.html?token=${token}`;
 });
 socket.on('user:login-error', message => alert(message));

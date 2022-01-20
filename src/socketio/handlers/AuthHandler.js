@@ -1,6 +1,4 @@
 const axios = require('axios').default;
-const jwt = require('jsonwebtoken');
-const util = require('util');
 
 class AuthHandler {
   constructor(socket) {
@@ -13,8 +11,7 @@ class AuthHandler {
       const { success, token } = await response.data;
 
       if (success) {
-        const { name, email, id } = await util.promisify(jwt.verify)(token, 'secret');
-        this.socket.emit('user:register-success', { success, token, user: { id, name, email } });
+        this.socket.emit('user:register-success', { token });
       } else {
         this.socket.emit('user:register-error', response.data.message);
       }
@@ -29,8 +26,7 @@ class AuthHandler {
       const { success, token } = await response.data;
 
       if (success) {
-        const { name, email, id } = await util.promisify(jwt.verify)(token, 'secret');
-        this.socket.emit('user:login-success', { success, token, user: { id, name, email } });
+        this.socket.emit('user:login-success', { token });
       } else {
         this.socket.emit('user:login-error', response.data.message);
       }
