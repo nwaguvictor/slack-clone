@@ -34,7 +34,9 @@ schema.pre('save', async function (next) {
 });
 
 schema.methods.signToken = async function () {
-  const token = await promisify(jwt.sign)({ id: this.id }, 'secret', { expiresIn: '90d' });
+  const token = await promisify(jwt.sign)({ id: this.id, name: this.name, email: this.email }, 'secret', {
+    expiresIn: '90d',
+  });
   return token;
 };
 

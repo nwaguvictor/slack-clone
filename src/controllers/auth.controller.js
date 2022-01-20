@@ -13,7 +13,7 @@ module.exports = {
       user = new User({ name, email, password });
       await user.save();
       const token = await user.signToken();
-      res.status(200).send({ token });
+      res.status(200).send({ success: true, token });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }
@@ -27,7 +27,7 @@ module.exports = {
         return next(new Error('Incorrect email or password'));
       }
       const token = await user.signToken();
-      res.status(200).send({ token });
+      res.status(200).send({ success: true, token });
     } catch (error) {
       res.status(400).send({ success: false, message: error.message });
     }

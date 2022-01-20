@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <title>Slack Login</title>
+</head>
+
+<body>
+  <div class="container">
+    <section class="form__wrapper">
+      <form action="#" id="form__login" class="form" method="POST">
+        <div class="form__group">
+          <label for="email" class="form__label">Email Address</label>
+          <input type="email" class="form__input" id="email" name="email" placeholder="jane@slack.com" />
+        </div>
+        <div class="form__group">
+          <label for="password" class="form__label">Password</label>
+          <input type="password" class="form__input" id="password" name="password" placeholder="******" />
+        </div>
+        <button class="btn btn__submit">Login</button>
+      </form>
+    </section>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="./js/login.js"></script>
+</body>
+
+</html>

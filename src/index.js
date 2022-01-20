@@ -17,7 +17,7 @@ app.all('*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(500).send({ success: false, message: err.message });
+  res.status(err.status || 200).send({ success: false, message: err.message });
 });
 
 const server = createServer(app);
