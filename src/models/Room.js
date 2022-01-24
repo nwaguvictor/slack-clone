@@ -8,8 +8,8 @@ const schema = new Schema({
   },
   namespace: {
     type: Schema.Types.ObjectId,
-    required: [true, 'please provide namespace id'],
-    ref: 'Namespace',
+    // required: [true, 'please provide namespace id'],
+    // ref: 'Namespace',
   },
 });
 

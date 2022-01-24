@@ -1,5 +1,11 @@
 const socket = io('http://localhost:2022');
 
+const params = new URL(document.location).searchParams;
+const error = params.get('error');
+if (error) {
+  alert(error);
+}
+
 const $ = s => document.querySelector(s);
 
 // Login form submission

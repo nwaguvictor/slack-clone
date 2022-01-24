@@ -46,13 +46,16 @@
         <ul class="list">
           <div class="list__title">
             <div class="list__title-text">Channels</div>
-            <ion-icon name="add-circle-outline" class="list__title-icon"></ion-icon>
+            <ion-icon name="add-circle-outline" class="list__title-icon" id="add__room"></ion-icon>
+            <form action="#" class="channel__form">
+              <div class="form__group">
+                <input type="text" name="channel" class="channel__input" id="channel" placeholder="Chennel Name"
+                  required>
+                <button type="submit" class="btn btn__submit">Add Channel</button>
+              </div>
+            </form>
           </div>
-          <li class="list__item"># introduction</li>
-          <li class="list__item"># cis</li>
           <li class="list__item"># general</li>
-          <li class="list__item"># mumu friends</li>
-          <li class="list__item"># games</li>
         </ul>
       </nav>
       <main class="chat">
