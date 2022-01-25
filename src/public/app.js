@@ -3,6 +3,10 @@ const token = params.get('token');
 
 const socket = io('http://localhost:2022/chat', { auth: { token } });
 
+socket.on('user:connected', user => {
+  $('.header__user--name').innerText = user.name.split(' ')[0];
+});
+
 socket.on('room:list', ({ rooms }) => {
   if (rooms.length <= 0) {
     // Add initial 'general' room, if the room array is empty
@@ -21,6 +25,11 @@ socket.on('room:list', ({ rooms }) => {
       joinRoom(roomName);
     });
   });
+
+  // Update User count
+  socket.on('room:joined', count => {
+    $('.chat__users-count').innerText = count;
+  });
 });
 
 // Room Messages
@@ -29,6 +38,7 @@ $('#message-form').addEventListener('submit', e => {
   const text = $('.message__input').value;
   const room = $('.chat__title-text').innerText.split(' ')[1];
   socket.emit('message:send', { room, text });
+  $('.message__input').value = '';
 });
 
 socket.on('message:receive', ({ text, user, time }) => {
@@ -45,6 +55,7 @@ socket.on('message:receive', ({ text, user, time }) => {
 $('#add__room').addEventListener('click', e => {
   e.preventDefault();
   $('.channel__form').classList.toggle('show');
+  $('#channel').focus();
 });
 
 $('.channel__form').addEventListener('submit', e => {
@@ -61,6 +72,14 @@ socket.on('room:added', ({ success, message }) => {
   }
 });
 
+// Leave Chat/Room
+$('.header__user').addEventListener('click', e => {
+  e.preventDefault();
+  if (confirm('Are you sure to leave the chat?')) {
+    window.location.href = `http://localhost:2022/login.html`;
+  }
+});
+
 socket.on('connect_error', error => {
   window.location.href = `http://localhost:2022/login.html?error=${error.message}`;
 });
@@ -71,16 +90,15 @@ function appendRooms(rooms = []) {
   rooms.forEach(room => {
     roomList += `<li class="list__item"># ${room.name}</li>`;
   });
-  document.querySelector('.list').insertAdjacentHTML('beforeend', roomList);
+  $('.list').insertAdjacentHTML('beforeend', roomList);
 }
 
 function joinRoom(name) {
-  // TODO:
-  socket.emit('room:join', { name }, ({ count, chats }) => {
+  socket.emit('room:join', { name }, chats => {
     // Update DOM room users count
-    $('.chat__users-count').innerText = count;
     $('.chat__title-text').innerText = `# ${name}`;
     $('.message__input').setAttribute('placeholder', `Message #${name}`);
+    $('.message__input').focus();
 
     // Update DOM chat messages
     let chatHistory = '';

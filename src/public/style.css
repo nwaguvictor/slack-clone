@@ -108,11 +108,19 @@ body {
 }
 
 .header__user {
-  align-self: center;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.header__user:hover {
+  color: #cf3030;
 }
 
 .header__logout {
   cursor: pointer;
+  margin-right: 0.4rem;
   font-size: 2.2rem;
 }
 

@@ -27,6 +27,8 @@ module.exports = httpServer => {
   const chatNs = io.of('/chat');
 
   chatNs.on('connect', async socket => {
+    socket.emit('user:connected', socket.user);
+
     const roomHandler = new RoomHandler(socket);
     const messageHandler = new MessageHandler(socket);
     const rooms = await roomHandler.getAll();
@@ -37,7 +39,8 @@ module.exports = httpServer => {
     socket.on('room:join', async ({ name }, cb) => {
       const chats = await roomHandler.join(name);
       const count = io.of('/chat').adapter.rooms.get(name).size;
-      cb({ count, chats });
+      chatNs.to(name).emit('room:joined', count);
+      cb(chats);
     });
 
     // Messages
