@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const util = require('util');
 
 const AuthHandler = require('./handlers/AuthHandler');
-const RoomHandler = require('./handlers/roomHandler');
+const RoomHandler = require('./handlers/RoomHandler');
 const User = require('../models/User');
-const Room = require('../models/Room');
+const MessageHandler = require('./handlers/MessageHandler');
 
 const options = {
   cors: {
@@ -28,9 +28,23 @@ module.exports = httpServer => {
 
   chatNs.on('connect', async socket => {
     const roomHandler = new RoomHandler(socket);
-    const rooms = await Room.find();
-    socket.emit('chat:rooms', { rooms });
-    socket.on('room:add', ({ name }) => roomHandler.add(name));
+    const messageHandler = new MessageHandler(socket);
+    const rooms = await roomHandler.getAll();
+
+    socket.emit('room:list', { rooms });
+    socket.on('room:add', async ({ name }) => await roomHandler.add(name));
+
+    socket.on('room:join', async ({ name }, cb) => {
+      const chats = await roomHandler.join(name);
+      const count = io.of('/chat').adapter.rooms.get(name).size;
+      cb({ count, chats });
+    });
+
+    // Messages
+    socket.on('message:send', async ({ room, text }) => {
+      const messageData = await messageHandler.create(room, text);
+      chatNs.in(room).emit('message:receive', messageData);
+    });
   });
 
   chatNs.use(async (socket, next) => {

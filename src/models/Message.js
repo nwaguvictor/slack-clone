@@ -19,4 +19,16 @@ const schema = new Schema({
 
 schema.set('timestamps', true);
 
+schema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'room',
+    select: 'name -_id',
+  });
+  this.populate({
+    path: 'user',
+    select: 'name -_id',
+  });
+  next();
+});
+
 module.exports = model('Message', schema);
